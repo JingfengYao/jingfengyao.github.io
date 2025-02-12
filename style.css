@@ -4,26 +4,26 @@ body {
     font-family: Arial, sans-serif;
     line-height: 1.4;
     color: #333;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
 .header-section {
     text-align: center;
-    padding: 30px 0;
-    background-color: #f5f5f5;
+    padding: 20px 0;
 }
 
 .content-section {
-    max-width: 700px;
+    max-width: 900px;
     margin: 30px auto;
     padding: 0 20px;
 }
 
 h1 {
     margin: 0;
-    font-size: 2em;
+    font-size: 1.6em;
+    color: #2c3e50;
 }
 
 h2 {
@@ -36,7 +36,6 @@ h2 {
 p {
     font-size: 0.95em;
     line-height: 1.5;
-    background-color: pink;
 }
 
 ul {
@@ -67,4 +66,136 @@ th, td {
 
 th {
     background-color: #f5f5f5;
+}
+
+.profile-container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.profile-photo {
+    flex: 0 0 150px; /* 固定宽度200px */
+}
+
+.profile-photo img {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.contact-links {
+    margin-top: 15px;
+}
+
+.contact-links a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: #2c3e50;
+}
+
+.contact-links a:hover {
+    color: #3498db;
+    text-decoration: underline;
+}
+
+.publication-list {
+    margin-top: 20px;
+}
+
+.publication-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.pub-thumbnail {
+    flex: 0 0 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pub-thumbnail img {
+    width: 100%;
+    max-height: 150px;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.pub-content {
+    flex: 1;
+}
+
+.pub-title {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.pub-authors {
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.pub-venue {
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.pub-links a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: #2c3e50;
+    font-size: 0.9em;
+}
+
+.pub-links a:hover {
+    color: #3498db;
+    text-decoration: underline;
+}
+
+.fun-fact-list {
+    margin-top: 20px;
+}
+
+.fun-fact-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.fact-thumbnail {
+    flex: 0 0 200px;  /* 从300px减小到200px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fact-thumbnail img {
+    width: 100%;
+    max-height: 150px;  /* 从200px减小到150px */
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.fact-content {
+    flex: 1;
+    padding: 20px 0;  /* 添加上下内边距 */
+}
+
+.fact-content p {
+    margin: 0;
+    font-size: 1.1em;  /* 增大字体 */
+    line-height: 1.6;
 }

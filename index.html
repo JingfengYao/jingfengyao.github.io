@@ -3,78 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JinFeng Yao</title>
+    <title>Jingfeng Yao (姚劲枫) </title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <!-- Header Section -->
     <header class="header-section">
-        <h1>Jinfeng Yao</h1>
+        <h1>Jingfeng Yao (姚劲枫)</h1>
     </header>
 
     <!-- About Me Section -->
     <section id="about" class="content-section">
-        <h2>About Me</h2>
-        <p>
-            My name is JinFeng Yao.  My name is JinFeng Yao. My name is JinFeng Yao. My name is JinFeng Yao. My name is JinFeng Yao. My name is JinFeng Yao. My name is JinFeng Yao.
-            <a href='https://www.hust.edu.cn'>华中科技大学</a>
-        </p>
-    </section>
-
-    <!-- Research Experience Section -->
-    <section id="research" class="content-section">
-        <h2>Research Experience</h2>
-        <table>
-            <tr>
-                <th>Course</th>
-                <th>Grade</th>
-            </tr>
-            <tr>
-                <td>Math</td>
-                <td>90</td>
-            </tr>
-            <tr>
-                <td>English</td>
-                <td>80</td>
-            </tr>
-            <tr>
-                <td>Computer</td>
-                <td>100</td>
-            </tr>
-        </table>
+        <div class="profile-container">
+            <div class="profile-photo">
+                <img src="images/jingfeng.jpg" alt="Jingfeng Yao">
+            </div>
+            <div class="profile-info">
+                <p>
+                    I am Jingfeng Yao, a <strong>second-year Ph.D. student</strong> at Huazhong University of Science and Technology (HUST), supervised by <strong>Prof. Xinggang Wang</strong>. My previous research includes image matting and representation learning. Currently, my research interests focus on <strong>generative models</strong>.
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:jfyao@hust.edu.cn"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://github.com/JingfengYao"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=4qc1qJ0AAAAJ&hl=en"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Awards Section -->
     <section id="awards" class="content-section">
-        <h2>Awards & Honors</h2>
-        <table>
-            <tr>
-                <th>Image</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td><img src="image1.jpg" alt="Image 1" width="100"></td>
-                <td>Description for image 1</td>
-            </tr>
-            <tr>
-                <td><img src="image2.jpg" alt="Image 2" width="100"></td>
-                <td>Description for image 2</td>
-            </tr>
-            <tr>
-                <td><img src="image3.jpg" alt="Image 3" width="100"></td>
-                <td>Description for image 3</td>
-            </tr>
-        </table>
+        <h2>Awards</h2>
+        <ul class="awards-list">
+            <li>China National Scholarship 2024<br>
+                国家奖学金</li>
+            <li>Gold Award in China College Students' 'Internet+' Innovation and 
+                Entrepreneurship Competition 2022<br>
+                中国大学生"互联网+"创新创业大赛 国赛金奖
+            </li>
+        </ul>
+    </section>
+
+    <!-- Publications Section -->
+    <section id="publications" class="content-section">
+        <h2>Publications</h2>
+        <div class="publication-list">
+
+            <div class="publication-item">
+                <div class="pub-thumbnail">
+                    <img src="images/vavae.png" alt="Paper thumbnail">
+                </div>
+                <div class="pub-content">
+                    <div class="pub-title">
+                        <strong>Reconstruction vs. Generation: Taming Optimization Dilemma in Latent Diffusion Models</strong>
+                    </div>
+                    <div class="pub-authors">
+                        <strong>Jingfeng Yao</strong>, Xinggang Wang
+                    </div>
+                    <div class="pub-venue">
+                        arXiv preprint, 2025
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2501.01423"><i class="fas fa-file-pdf"></i> arXiv</a>
+                        <a href="https://github.com/hustvl/LightningDiT"><i class="fab fa-github"></i> code</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="pub-thumbnail">
+                    <img src="images/fasterdit.png" alt="Paper thumbnail">
+                </div>
+                <div class="pub-content">
+                    <div class="pub-title">
+                        <strong>FasterDiT: Towards Faster Diffusion Transformers Training without Architecture Modification</strong>
+                    </div>
+                    <div class="pub-authors">
+                        <strong>Jingfeng Yao</strong>, Cheng Wang, Wenyu Liu, Xinggang Wang
+                    </div>
+                    <div class="pub-venue">
+                        NeurIPS 2024
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2410.10356"><i class="fas fa-file-pdf"></i> arXiv</a>
+                        <a href="https://github.com/hustvl/LightningDiT"><i class="fab fa-github"></i> code</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="pub-thumbnail">
+                    <img src="images/evax.png" alt="Paper thumbnail">
+                </div>
+                <div class="pub-content">
+                    <div class="pub-title">
+                        <strong>EVA-X: A Foundation Model for General Chest X-ray Analysis with Self-supervised Learning</strong>
+                    </div>
+                    <div class="pub-authors">
+                        <strong>Jingfeng Yao</strong>, Xinggang Wang, Yuehao Song, Huangxuan Zhao, Jun Ma, Yajie Chen, Wenyu Liu, Bo Wang
+                    </div>
+                    <div class="pub-venue">
+                        arXiv preprint, 2024
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2405.05237"><i class="fas fa-file-pdf"></i> arXiv</a>
+                        <a href="https://github.com/hustvl/EVA-X"><i class="fab fa-github"></i> code</a>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="publication-item">
+                <div class="pub-thumbnail">
+                    <img src="images/lkcell.png" alt="Paper thumbnail">
+                </div>
+                <div class="pub-content">
+                    <div class="pub-title">
+                        <strong>LKCell: Efficient Cell Nuclei Instance Segmentation with Large Convolution Kernels</strong>
+                    </div>
+                    <div class="pub-authors">
+                        Ziwei Cui*, <strong>Jingfeng Yao</strong>*, Lunbin Zeng, Juan Yang, Wenyu Liu, Xinggang Wang
+                        (* denotes equal contribution)
+                    </div>
+                    <div class="pub-venue">
+                        arXiv preprint, 2024
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2407.18054"><i class="fas fa-file-pdf"></i> arXiv</a>
+                        <a href="https://github.com/hustvl/LKCell"><i class="fab fa-github"></i> code</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="pub-thumbnail">
+                    <img src="images/matteanything.png" alt="Paper thumbnail">
+                </div>
+                <div class="pub-content">
+                    <div class="pub-title">
+                        <strong>Matte Anything! Interactive Natural Image Matting with Segment Anything Models</strong>
+                    </div>
+                    <div class="pub-authors">
+                        <strong>Jingfeng Yao</strong>, Xinggang Wang, Lang Ye, Wenyu Liu
+                    </div>
+                    <div class="pub-venue">
+                        Image and Vision Computing, 2023
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2306.04121"><i class="fas fa-file-pdf"></i> arXiv</a>
+                        <a href="https://github.com/hustvl/Matte-Anything"><i class="fab fa-github"></i> code</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="pub-thumbnail">
+                    <img src="images/vitmatte.png" alt="Paper thumbnail">
+                </div>
+                <div class="pub-content">
+                    <div class="pub-title">
+                        <strong>ViTMatte: Boosting Image Matting with Pretrained Plain Vision Transformers</strong>
+                    </div>
+                    <div class="pub-authors">
+                        <strong>Jingfeng Yao</strong>, Xinggang Wang, Shusheng Yang, Baoyuan Wang
+                    </div>
+                    <div class="pub-venue">
+                        Information Fusion, 2023
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2306.04121"><i class="fas fa-file-pdf"></i> arXiv</a>
+                        <a href="https://github.com/hustvl/Matte-Anything"><i class="fab fa-github"></i> code</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </section>
 
     <!-- Fun Facts Section -->
     <section id="fun-facts" class="content-section">
         <h2>Fun Facts</h2>
-        <ul>
-            <li>Fun Fact 1</li>
-            <li>Fun Fact 2</li>
-            <li>Fun Fact 3</li>
-        </ul>
+        <div class="fun-fact-list">
+            <div class="fun-fact-item">
+                <div class="fact-thumbnail">
+                    <img src="images/volunteer.jpg" alt="Volunteer teaching">
+                </div>
+                <div class="fact-content">
+                    <p>I spent <strong>one year as a volunteer teacher</strong> in Lincang, Yunnan Province, representing Huazhong University of Science and Technology. I taught history at Linxiang No.1 Middle School.</p>
+                    <div class="fact-links">
+                        <a href="https://www.thepaper.cn/newsDetail_forward_9929789" target="_blank">
+                            <i class="fas fa-newspaper"></i> News Coverage
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+
 </body>
 </html>
