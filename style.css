@@ -162,6 +162,16 @@ th {
     text-decoration: underline;
 }
 
+.pub-highlight {
+    margin: 8px 0;
+    color: #e67e22;
+    font-size: 0.9em;
+}
+
+.pub-highlight i {
+    margin-right: 5px;
+}
+
 .fun-fact-list {
     margin-top: 20px;
 }
