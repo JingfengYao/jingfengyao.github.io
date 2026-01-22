@@ -1,7 +1,4 @@
 async function fetchGitHubStats() {
-    // 存储所有仓库的stars数据
-    const repoStars = {};
-
     try {
         // 获取所有GitHub链接
         const githubLinks = document.querySelectorAll('a[href*="github.com"]');
@@ -22,13 +19,33 @@ async function fetchGitHubStats() {
         const now = Date.now();
         const oneHour = 60 * 60 * 1000; // 1小时
 
-        if (cachedData && cacheTime && (now - parseInt(cacheTime)) < oneHour) {
-            // 使用缓存数据
+        // 总是先显示缓存数据（如果有）
+        if (cachedData) {
             const cachedRepoStars = JSON.parse(cachedData);
             updateGitHubLinksWithStars(cachedRepoStars);
-            return;
         }
 
+        // 检查缓存是否过期
+        const cacheExpired = !cacheTime || (now - parseInt(cacheTime)) >= oneHour;
+
+        // 如果缓存过期或不存在，在后台更新数据
+        if (cacheExpired || !cachedData) {
+            // 使用setTimeout让更新在后台进行，不阻塞页面渲染
+            setTimeout(async () => {
+                await updateGitHubStarsInBackground(repos);
+            }, 1000); // 延迟1秒开始后台更新
+        }
+
+    } catch (error) {
+        console.error('Error fetching GitHub stats:', error);
+    }
+}
+
+async function updateGitHubStarsInBackground(repos) {
+    const repoStars = {};
+    const now = Date.now();
+
+    try {
         // 为每个仓库获取stars数量
         for (const repo of repos) {
             try {
@@ -47,15 +64,17 @@ async function fetchGitHubStats() {
             }
         }
 
-        // 更新页面中的GitHub链接
+        // 更新页面中的GitHub链接（使用新数据）
         updateGitHubLinksWithStars(repoStars);
 
         // 缓存数据到本地存储
         localStorage.setItem('githubStarsCache', JSON.stringify(repoStars));
         localStorage.setItem('githubStarsCacheTime', now.toString());
 
+        console.log('GitHub stars updated in background');
+
     } catch (error) {
-        console.error('Error fetching GitHub stats:', error);
+        console.error('Error updating GitHub stars in background:', error);
     }
 }
 
@@ -71,7 +90,13 @@ function updateGitHubLinksWithStars(repoStars) {
 
             if (stars !== undefined && stars > 0) {
                 // 检查是否已经添加了stars显示
-                if (!link.querySelector('.github-stars')) {
+                const existingStarsSpan = link.querySelector('.github-stars');
+
+                if (existingStarsSpan) {
+                    // 更新现有的stars显示
+                    existingStarsSpan.innerHTML = `<i class="fas fa-star" style="color: #ffd700;"></i> ${stars}`;
+                } else {
+                    // 创建新的stars显示
                     const starsSpan = document.createElement('span');
                     starsSpan.className = 'github-stars';
                     starsSpan.style.marginLeft = '5px';
@@ -79,6 +104,12 @@ function updateGitHubLinksWithStars(repoStars) {
                     starsSpan.style.fontSize = '0.9em';
                     starsSpan.innerHTML = `<i class="fas fa-star" style="color: #ffd700;"></i> ${stars}`;
                     link.appendChild(starsSpan);
+                }
+            } else if (stars === 0) {
+                // 如果stars为0，移除显示
+                const existingStarsSpan = link.querySelector('.github-stars');
+                if (existingStarsSpan) {
+                    existingStarsSpan.remove();
                 }
             }
         }
@@ -101,4 +132,21 @@ async function fetchScholarCitations() {
 window.onload = function() {
     fetchGitHubStats();
     fetchScholarCitations();
+
+    // 设置定时器，每小时检查并更新一次GitHub stars
+    setInterval(() => {
+        const githubLinks = document.querySelectorAll('a[href*="github.com"]');
+        const repos = new Set();
+        githubLinks.forEach(link => {
+            const url = link.href;
+            const match = url.match(/github\.com\/([^\/]+\/[^\/]+)/);
+            if (match) {
+                repos.add(match[1]);
+            }
+        });
+
+        if (repos.size > 0) {
+            updateGitHubStarsInBackground(repos);
+        }
+    }, 60 * 60 * 1000); // 每小时检查一次
 } 
