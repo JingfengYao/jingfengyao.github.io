@@ -80,6 +80,8 @@ async function updateGitHubStarsInBackground(repos) {
 
 function updateGitHubLinksWithStars(repoStars) {
     const githubLinks = document.querySelectorAll('a[href*="github.com"]');
+    let totalStars = 0;
+    const countedRepos = new Set(); // 用于记录已经计算过的仓库
 
     githubLinks.forEach(link => {
         const url = link.href;
@@ -105,6 +107,12 @@ function updateGitHubLinksWithStars(repoStars) {
                     starsSpan.innerHTML = `<i class="fas fa-star" style="color: #ffd700;"></i> ${stars}`;
                     link.appendChild(starsSpan);
                 }
+
+                // 累加到总星星数（每个仓库只计算一次）
+                if (!countedRepos.has(repo)) {
+                    totalStars += stars;
+                    countedRepos.add(repo);
+                }
             } else if (stars === 0) {
                 // 如果stars为0，移除显示
                 const existingStarsSpan = link.querySelector('.github-stars');
@@ -114,6 +122,12 @@ function updateGitHubLinksWithStars(repoStars) {
             }
         }
     });
+
+    // 更新总星星数显示
+    const totalStarsElement = document.getElementById('github-stars');
+    if (totalStarsElement && totalStars > 0) {
+        totalStarsElement.textContent = totalStars.toLocaleString();
+    }
 }
 
 async function fetchScholarCitations() {
