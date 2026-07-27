@@ -1,75 +1,68 @@
 /**
  * Fetch GitHub star counts.
- * Priority: API (server-side daily cache) → static JSON fallback → localStorage
+ * Priority: localStorage (instant) → API (server-side daily cache) → static JSON fallback → localStorage
  */
 async function fetchGitHubStats() {
-    try {
-        // 1. Extract all unique repos from GitHub links on the page
-        const githubLinks = document.querySelectorAll('a[href*="github.com"]');
-        const repos = new Set();
-        githubLinks.forEach(link => {
-            const url = link.href;
-            const match = url.match(/github\.com\/([^\/]+\/[^\/]+)/);
-            if (match) {
-                repos.add(match[1]);
-            }
-        });
-
-        if (repos.size === 0) return;
-
-        const reposList = Array.from(repos).join(',');
-
-        // 2. Try server-side API first (Vercel function with daily cache)
-        let data = null;
+    // 1. Show cached data IMMEDIATELY from localStorage (synchronous, instant display)
+    const cachedData = localStorage.getItem('githubStarsCache');
+    const cachedDate = localStorage.getItem('githubStarsCacheDate');
+    if (cachedData) {
         try {
-            const response = await fetch(`/api/github-stars?repos=${encodeURIComponent(reposList)}`);
-            if (response.ok) {
-                data = await response.json();
+            const stars = JSON.parse(cachedData);
+            updateGitHubLinksWithStars(stars);
+            const total = Object.values(stars).reduce((a, b) => a + b, 0);
+            updateTotalStars(total, cachedDate);
+        } catch (e) { /* ignore parse errors */ }
+    }
+
+    // 2. Extract all unique repos from GitHub links on the page
+    const githubLinks = document.querySelectorAll('a[href*="github.com"]');
+    const repos = new Set();
+    githubLinks.forEach(link => {
+        const url = link.href;
+        const match = url.match(/github\.com\/([^\/]+\/[^\/]+)/);
+        if (match) {
+            repos.add(match[1]);
+        }
+    });
+
+    if (repos.size === 0) return;
+
+    const reposList = Array.from(repos).join(',');
+
+    // 3. Try server-side API first (Vercel function with daily cache)
+    let data = null;
+    try {
+        const response = await fetch(`/api/github-stars?repos=${encodeURIComponent(reposList)}`);
+        if (response.ok) {
+            data = await response.json();
+        }
+    } catch (e) {
+        console.warn('GitHub stars API unavailable, trying fallbacks:', e.message);
+    }
+
+    // 4. Fallback to static JSON file (shipped with the repo)
+    if (!data || !data.stars) {
+        try {
+            const resp = await fetch('/data/github-stars-cache.json');
+            if (resp.ok) {
+                data = await resp.json();
             }
         } catch (e) {
-            console.warn('GitHub stars API unavailable, trying fallbacks:', e.message);
+            console.warn('Static cache unavailable:', e.message);
         }
+    }
 
-        // 3. Fallback to static JSON file (shipped with the repo)
-        if (!data || !data.stars) {
-            try {
-                const resp = await fetch('/data/github-stars-cache.json');
-                if (resp.ok) {
-                    data = await resp.json();
-                }
-            } catch (e) {
-                console.warn('Static cache unavailable:', e.message);
-            }
+    // 5. Update the page with fresh data (if we got any)
+    if (data && data.stars) {
+        updateGitHubLinksWithStars(data.stars);
+        updateTotalStars(data.totalStars, data.date);
+
+        // Sync to localStorage for next time
+        localStorage.setItem('githubStarsCache', JSON.stringify(data.stars));
+        if (data.date) {
+            localStorage.setItem('githubStarsCacheDate', data.date);
         }
-
-        // 4. Last resort: localStorage (from previous successful fetches)
-        if (!data || !data.stars) {
-            const cached = localStorage.getItem('githubStarsCache');
-            const cachedDate = localStorage.getItem('githubStarsCacheDate');
-            if (cached) {
-                const stars = JSON.parse(cached);
-                data = {
-                    stars: stars,
-                    totalStars: Object.values(stars).reduce((a, b) => a + b, 0),
-                    date: cachedDate || null,
-                };
-            }
-        }
-
-        // 5. Update the page
-        if (data && data.stars) {
-            updateGitHubLinksWithStars(data.stars);
-            updateTotalStars(data.totalStars, data.date);
-
-            // Sync to localStorage for offline fallback
-            localStorage.setItem('githubStarsCache', JSON.stringify(data.stars));
-            if (data.date) {
-                localStorage.setItem('githubStarsCacheDate', data.date);
-            }
-        }
-
-    } catch (error) {
-        console.error('Error fetching GitHub stats:', error);
     }
 }
 
@@ -133,7 +126,7 @@ function updateGitHubLinksWithStars(repoStars) {
 }
 
 /**
- * Fetch Google Scholar citations (unchanged)
+ * Fetch Google Scholar citations
  */
 async function fetchScholarCitations() {
     try {
@@ -141,7 +134,8 @@ async function fetchScholarCitations() {
         if (!response.ok) return;
         const data = await response.json();
         if (data.citations > 0) {
-            document.getElementById('scholar-citations').textContent = data.citations;
+            const el = document.getElementById('scholar-citations');
+            if (el) el.textContent = data.citations;
         }
     } catch (error) {
         console.error('Error fetching citations:', error);
