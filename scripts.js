@@ -1,9 +1,11 @@
+/**
+ * Fetch GitHub star counts.
+ * Priority: API (server-side daily cache) → static JSON fallback → localStorage
+ */
 async function fetchGitHubStats() {
     try {
-        // 获取所有GitHub链接
+        // 1. Extract all unique repos from GitHub links on the page
         const githubLinks = document.querySelectorAll('a[href*="github.com"]');
-
-        // 提取仓库信息
         const repos = new Set();
         githubLinks.forEach(link => {
             const url = link.href;
@@ -13,27 +15,57 @@ async function fetchGitHubStats() {
             }
         });
 
-        // 检查本地存储中是否有缓存数据
-        const cachedData = localStorage.getItem('githubStarsCache');
-        const cacheTime = localStorage.getItem('githubStarsCacheTime');
-        const now = Date.now();
-        const oneHour = 60 * 60 * 1000; // 1小时
+        if (repos.size === 0) return;
 
-        // 总是先显示缓存数据（如果有）
-        if (cachedData) {
-            const cachedRepoStars = JSON.parse(cachedData);
-            updateGitHubLinksWithStars(cachedRepoStars);
+        const reposList = Array.from(repos).join(',');
+
+        // 2. Try server-side API first (Vercel function with daily cache)
+        let data = null;
+        try {
+            const response = await fetch(`/api/github-stars?repos=${encodeURIComponent(reposList)}`);
+            if (response.ok) {
+                data = await response.json();
+            }
+        } catch (e) {
+            console.warn('GitHub stars API unavailable, trying fallbacks:', e.message);
         }
 
-        // 检查缓存是否过期
-        const cacheExpired = !cacheTime || (now - parseInt(cacheTime)) >= oneHour;
+        // 3. Fallback to static JSON file (shipped with the repo)
+        if (!data || !data.stars) {
+            try {
+                const resp = await fetch('/data/github-stars-cache.json');
+                if (resp.ok) {
+                    data = await resp.json();
+                }
+            } catch (e) {
+                console.warn('Static cache unavailable:', e.message);
+            }
+        }
 
-        // 如果缓存过期或不存在，在后台更新数据
-        if (cacheExpired || !cachedData) {
-            // 使用setTimeout让更新在后台进行，不阻塞页面渲染
-            setTimeout(async () => {
-                await updateGitHubStarsInBackground(repos);
-            }, 1000); // 延迟1秒开始后台更新
+        // 4. Last resort: localStorage (from previous successful fetches)
+        if (!data || !data.stars) {
+            const cached = localStorage.getItem('githubStarsCache');
+            const cachedDate = localStorage.getItem('githubStarsCacheDate');
+            if (cached) {
+                const stars = JSON.parse(cached);
+                data = {
+                    stars: stars,
+                    totalStars: Object.values(stars).reduce((a, b) => a + b, 0),
+                    date: cachedDate || null,
+                };
+            }
+        }
+
+        // 5. Update the page
+        if (data && data.stars) {
+            updateGitHubLinksWithStars(data.stars);
+            updateTotalStars(data.totalStars, data.date);
+
+            // Sync to localStorage for offline fallback
+            localStorage.setItem('githubStarsCache', JSON.stringify(data.stars));
+            if (data.date) {
+                localStorage.setItem('githubStarsCacheDate', data.date);
+            }
         }
 
     } catch (error) {
@@ -41,100 +73,74 @@ async function fetchGitHubStats() {
     }
 }
 
-async function updateGitHubStarsInBackground(repos) {
-    const repoStars = {};
-    const now = Date.now();
-
-    try {
-        // 为每个仓库获取stars数量
-        for (const repo of repos) {
-            try {
-                const response = await fetch(`https://api.github.com/repos/${repo}`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                repoStars[repo] = data.stargazers_count;
-
-                // 添加延迟以避免触发GitHub API限制
-                await new Promise(resolve => setTimeout(resolve, 100));
-            } catch (error) {
-                console.error(`Error fetching stars for ${repo}:`, error);
-                repoStars[repo] = 0;
-            }
-        }
-
-        // 更新页面中的GitHub链接（使用新数据）
-        updateGitHubLinksWithStars(repoStars);
-
-        // 缓存数据到本地存储
-        localStorage.setItem('githubStarsCache', JSON.stringify(repoStars));
-        localStorage.setItem('githubStarsCacheTime', now.toString());
-
-        console.log('GitHub stars updated in background');
-
-    } catch (error) {
-        console.error('Error updating GitHub stars in background:', error);
-    }
-}
-
-function updateGitHubLinksWithStars(repoStars) {
-    const githubLinks = document.querySelectorAll('a[href*="github.com"]');
-    let totalStars = 0;
-    const countedRepos = new Set(); // 用于记录已经计算过的仓库
-
-    githubLinks.forEach(link => {
-        const url = link.href;
-        const match = url.match(/github\.com\/([^\/]+\/[^\/]+)/);
-        if (match) {
-            const repo = match[1];
-            const stars = repoStars[repo];
-
-            if (stars !== undefined && stars > 0) {
-                // 检查是否已经添加了stars显示
-                const existingStarsSpan = link.querySelector('.github-stars');
-
-                if (existingStarsSpan) {
-                    // 更新现有的stars显示
-                    existingStarsSpan.innerHTML = `<i class="fas fa-star" style="color: #ffd700;"></i> ${stars}`;
-                } else {
-                    // 创建新的stars显示
-                    const starsSpan = document.createElement('span');
-                    starsSpan.className = 'github-stars';
-                    starsSpan.style.marginLeft = '5px';
-                    starsSpan.style.color = '#666';
-                    starsSpan.style.fontSize = '0.9em';
-                    starsSpan.innerHTML = `<i class="fas fa-star" style="color: #ffd700;"></i> ${stars}`;
-                    link.appendChild(starsSpan);
-                }
-
-                // 累加到总星星数（每个仓库只计算一次）
-                if (!countedRepos.has(repo)) {
-                    totalStars += stars;
-                    countedRepos.add(repo);
-                }
-            } else if (stars === 0) {
-                // 如果stars为0，移除显示
-                const existingStarsSpan = link.querySelector('.github-stars');
-                if (existingStarsSpan) {
-                    existingStarsSpan.remove();
-                }
-            }
-        }
-    });
-
-    // 更新总星星数显示
+/**
+ * Update the total stars counter with date
+ */
+function updateTotalStars(totalStars, date) {
     const totalStarsElement = document.getElementById('github-stars');
     if (totalStarsElement && totalStars > 0) {
         totalStarsElement.textContent = totalStars.toLocaleString();
     }
+
+    const dateSpan = document.getElementById('stars-date');
+    if (dateSpan && date) {
+        dateSpan.textContent = ` (${date})`;
+        dateSpan.style.fontSize = '0.85em';
+        dateSpan.style.color = '#999';
+    } else if (dateSpan) {
+        dateSpan.textContent = '';
+    }
 }
 
+/**
+ * Add/update star badges on individual GitHub links
+ */
+function updateGitHubLinksWithStars(repoStars) {
+    const githubLinks = document.querySelectorAll('a[href*="github.com"]');
+
+    githubLinks.forEach(link => {
+        const url = link.href;
+        const match = url.match(/github\.com\/([^\/]+\/[^\/]+)/);
+        if (!match) return;
+
+        const repo = match[1];
+        const stars = repoStars[repo];
+
+        if (stars !== undefined && stars > 0) {
+            const existingStarsSpan = link.querySelector('.github-stars');
+            const html = `<i class="fas fa-star" style="color: #ffd700;"></i> ${stars.toLocaleString()}`;
+
+            if (existingStarsSpan) {
+                existingStarsSpan.innerHTML = html;
+            } else {
+                const starsSpan = document.createElement('span');
+                starsSpan.className = 'github-stars';
+                starsSpan.style.marginLeft = '5px';
+                starsSpan.style.color = '#666';
+                starsSpan.style.fontSize = '0.9em';
+                starsSpan.innerHTML = html;
+                link.appendChild(starsSpan);
+            }
+        } else if (stars === 0) {
+            // Remove badge if stars is explicitly 0 (likely an error)
+            const existingStarsSpan = link.querySelector('.github-stars');
+            if (existingStarsSpan) {
+                existingStarsSpan.remove();
+            }
+        }
+        // If stars is undefined (repo not in cache), leave existing display untouched
+    });
+}
+
+/**
+ * Fetch Google Scholar citations (unchanged)
+ */
 async function fetchScholarCitations() {
     try {
-        const response = await fetch('https://your-vercel-app.vercel.app/api/scholar');
+        const response = await fetch('/api/scholar');
+        if (!response.ok) return;
         const data = await response.json();
-        if (data.citations > 0) {  // 只在成功获取数据时更新
+        if (data.citations > 0) {
             document.getElementById('scholar-citations').textContent = data.citations;
         }
     } catch (error) {
@@ -142,25 +148,11 @@ async function fetchScholarCitations() {
     }
 }
 
-// 在页面加载时获取数据
-window.onload = function() {
+// ── Page load ──────────────────────────────────────────────
+window.onload = function () {
     fetchGitHubStats();
     fetchScholarCitations();
 
-    // 设置定时器，每小时检查并更新一次GitHub stars
-    setInterval(() => {
-        const githubLinks = document.querySelectorAll('a[href*="github.com"]');
-        const repos = new Set();
-        githubLinks.forEach(link => {
-            const url = link.href;
-            const match = url.match(/github\.com\/([^\/]+\/[^\/]+)/);
-            if (match) {
-                repos.add(match[1]);
-            }
-        });
-
-        if (repos.size > 0) {
-            updateGitHubStarsInBackground(repos);
-        }
-    }, 60 * 60 * 1000); // 每小时检查一次
-} 
+    // Refresh from API once per hour (API has daily cache, so this is cheap)
+    setInterval(fetchGitHubStats, 60 * 60 * 1000);
+};
