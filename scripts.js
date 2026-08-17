@@ -1,7 +1,10 @@
 /**
  * Fetch GitHub star counts.
- * Priority: localStorage (instant) -> server API -> static JSON fallback.
+ * Priority: localStorage (instant) -> daily-updated repository cache -> deployed fallback.
  */
+const GITHUB_STARS_CACHE_URL =
+    "https://raw.githubusercontent.com/JingfengYao/jingfengyao.github.io/master/data/github-stars-cache.json";
+
 async function fetchGitHubStats() {
     const cachedData = localStorage.getItem("githubStarsCache");
     const cachedDate = localStorage.getItem("githubStarsCacheDate");
@@ -24,20 +27,22 @@ async function fetchGitHubStats() {
 
     if (repos.size === 0) return;
 
-    let data = null;
-    try {
-        const response = await fetch(`/api/github-stars?repos=${encodeURIComponent(Array.from(repos).join(","))}`);
-        if (response.ok) data = await response.json();
-    } catch (error) {
-        console.warn("GitHub stars API unavailable; using the static cache.", error);
-    }
+    const cacheKey = new Date().toISOString().slice(0, 10);
+    const cacheSources = [
+        `${GITHUB_STARS_CACHE_URL}?date=${cacheKey}`,
+        `/data/github-stars-cache.json?date=${cacheKey}`,
+    ];
 
-    if (!data?.stars) {
+    let data = null;
+    for (const source of cacheSources) {
         try {
-            const response = await fetch("/data/github-stars-cache.json");
-            if (response.ok) data = await response.json();
+            const response = await fetch(source, { cache: "no-store" });
+            if (response.ok) {
+                data = await response.json();
+                if (data?.stars) break;
+            }
         } catch (error) {
-            console.warn("Static GitHub stars cache unavailable.", error);
+            console.warn(`GitHub stars cache unavailable: ${source}`, error);
         }
     }
 
