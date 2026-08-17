@@ -1,152 +1,106 @@
 /**
  * Fetch GitHub star counts.
- * Priority: localStorage (instant) → API (server-side daily cache) → static JSON fallback → localStorage
+ * Priority: localStorage (instant) -> server API -> static JSON fallback.
  */
 async function fetchGitHubStats() {
-    // 1. Show cached data IMMEDIATELY from localStorage (synchronous, instant display)
-    const cachedData = localStorage.getItem('githubStarsCache');
-    const cachedDate = localStorage.getItem('githubStarsCacheDate');
+    const cachedData = localStorage.getItem("githubStarsCache");
+    const cachedDate = localStorage.getItem("githubStarsCacheDate");
+
     if (cachedData) {
         try {
             const stars = JSON.parse(cachedData);
             updateGitHubLinksWithStars(stars);
-            const total = Object.values(stars).reduce((a, b) => a + b, 0);
-            updateTotalStars(total, cachedDate);
-        } catch (e) { /* ignore parse errors */ }
+            updateTotalStars(Object.values(stars).reduce((sum, value) => sum + value, 0), cachedDate);
+        } catch (error) {
+            console.warn("Could not read the local GitHub stars cache.", error);
+        }
     }
 
-    // 2. Extract all unique repos from GitHub links on the page
-    const githubLinks = document.querySelectorAll('a[href*="github.com"]');
     const repos = new Set();
-    githubLinks.forEach(link => {
-        const url = link.href;
-        const match = url.match(/github\.com\/([^\/]+\/[^\/]+)/);
-        if (match) {
-            repos.add(match[1]);
-        }
+    document.querySelectorAll('a[href*="github.com"]').forEach((link) => {
+        const match = link.href.match(/github\.com\/([^/]+\/[^/?#]+)/);
+        if (match) repos.add(match[1]);
     });
 
     if (repos.size === 0) return;
 
-    const reposList = Array.from(repos).join(',');
-
-    // 3. Try server-side API first (Vercel function with daily cache)
     let data = null;
     try {
-        const response = await fetch(`/api/github-stars?repos=${encodeURIComponent(reposList)}`);
-        if (response.ok) {
-            data = await response.json();
-        }
-    } catch (e) {
-        console.warn('GitHub stars API unavailable, trying fallbacks:', e.message);
+        const response = await fetch(`/api/github-stars?repos=${encodeURIComponent(Array.from(repos).join(","))}`);
+        if (response.ok) data = await response.json();
+    } catch (error) {
+        console.warn("GitHub stars API unavailable; using the static cache.", error);
     }
 
-    // 4. Fallback to static JSON file (shipped with the repo)
-    if (!data || !data.stars) {
+    if (!data?.stars) {
         try {
-            const resp = await fetch('/data/github-stars-cache.json');
-            if (resp.ok) {
-                data = await resp.json();
-            }
-        } catch (e) {
-            console.warn('Static cache unavailable:', e.message);
+            const response = await fetch("/data/github-stars-cache.json");
+            if (response.ok) data = await response.json();
+        } catch (error) {
+            console.warn("Static GitHub stars cache unavailable.", error);
         }
     }
 
-    // 5. Update the page with fresh data (if we got any)
-    if (data && data.stars) {
+    if (data?.stars) {
         updateGitHubLinksWithStars(data.stars);
         updateTotalStars(data.totalStars, data.date);
-
-        // Sync to localStorage for next time
-        localStorage.setItem('githubStarsCache', JSON.stringify(data.stars));
-        if (data.date) {
-            localStorage.setItem('githubStarsCacheDate', data.date);
-        }
+        localStorage.setItem("githubStarsCache", JSON.stringify(data.stars));
+        if (data.date) localStorage.setItem("githubStarsCacheDate", data.date);
     }
 }
 
-/**
- * Update the total stars counter with date
- */
 function updateTotalStars(totalStars, date) {
-    const totalStarsElement = document.getElementById('github-stars');
-    if (totalStarsElement && totalStars > 0) {
-        totalStarsElement.textContent = totalStars.toLocaleString();
-    }
+    const total = document.getElementById("github-stars");
+    if (total && totalStars > 0) total.textContent = totalStars.toLocaleString();
 
-    const dateSpan = document.getElementById('stars-date');
-    if (dateSpan && date) {
-        dateSpan.textContent = ` (${date})`;
-        dateSpan.style.fontSize = '0.85em';
-        dateSpan.style.color = '#999';
-    } else if (dateSpan) {
-        dateSpan.textContent = '';
+    const dateLabel = document.getElementById("stars-date");
+    if (dateLabel && date) {
+        dateLabel.textContent = `Updated ${date}`;
+        dateLabel.title = `GitHub stars updated ${date}`;
     }
 }
 
-/**
- * Add/update star badges on individual GitHub links
- */
 function updateGitHubLinksWithStars(repoStars) {
-    const githubLinks = document.querySelectorAll('a[href*="github.com"]');
-
-    githubLinks.forEach(link => {
-        const url = link.href;
-        const match = url.match(/github\.com\/([^\/]+\/[^\/]+)/);
+    document.querySelectorAll('a[href*="github.com"]').forEach((link) => {
+        const match = link.href.match(/github\.com\/([^/]+\/[^/?#]+)/);
         if (!match) return;
 
-        const repo = match[1];
-        const stars = repoStars[repo];
+        const stars = repoStars[match[1]];
+        const existingBadge = link.querySelector(".github-stars");
 
-        if (stars !== undefined && stars > 0) {
-            const existingStarsSpan = link.querySelector('.github-stars');
-            const html = `<i class="fas fa-star" style="color: #ffd700;"></i> ${stars.toLocaleString()}`;
-
-            if (existingStarsSpan) {
-                existingStarsSpan.innerHTML = html;
-            } else {
-                const starsSpan = document.createElement('span');
-                starsSpan.className = 'github-stars';
-                starsSpan.style.marginLeft = '5px';
-                starsSpan.style.color = '#666';
-                starsSpan.style.fontSize = '0.9em';
-                starsSpan.innerHTML = html;
-                link.appendChild(starsSpan);
-            }
-        } else if (stars === 0) {
-            // Remove badge if stars is explicitly 0 (likely an error)
-            const existingStarsSpan = link.querySelector('.github-stars');
-            if (existingStarsSpan) {
-                existingStarsSpan.remove();
-            }
+        if (stars > 0) {
+            const badge = existingBadge || document.createElement("span");
+            badge.className = "github-stars";
+            badge.textContent = `${stars.toLocaleString()} stars`;
+            if (!existingBadge) link.appendChild(badge);
+        } else if (existingBadge) {
+            existingBadge.remove();
         }
-        // If stars is undefined (repo not in cache), leave existing display untouched
     });
 }
 
-/**
- * Fetch Google Scholar citations
- */
-async function fetchScholarCitations() {
-    try {
-        const response = await fetch('/api/scholar');
-        if (!response.ok) return;
-        const data = await response.json();
-        if (data.citations > 0) {
-            const el = document.getElementById('scholar-citations');
-            if (el) el.textContent = data.citations;
-        }
-    } catch (error) {
-        console.error('Error fetching citations:', error);
-    }
+function setupActiveNavigation() {
+    const links = Array.from(document.querySelectorAll(".site-nav a"));
+    const targets = links
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+    if (!("IntersectionObserver" in window)) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            links.forEach((link) => {
+                link.classList.toggle("is-active", link.getAttribute("href") === `#${entry.target.id}`);
+            });
+        });
+    }, { rootMargin: "-20% 0px -70%", threshold: 0 });
+
+    targets.forEach((target) => observer.observe(target));
 }
 
-// ── Page load ──────────────────────────────────────────────
-window.onload = function () {
+document.addEventListener("DOMContentLoaded", () => {
+    setupActiveNavigation();
     fetchGitHubStats();
-    fetchScholarCitations();
-
-    // Refresh from API once per hour (API has daily cache, so this is cheap)
-    setInterval(fetchGitHubStats, 60 * 60 * 1000);
-};
+    window.setInterval(fetchGitHubStats, 60 * 60 * 1000);
+});

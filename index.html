@@ -3,315 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jingfeng Yao (姚劲枫) </title>
+    <meta name="description" content="Jingfeng Yao is a Ph.D. researcher at HUST working on generative models, visual tokenizers, and image matting.">
+    <meta name="theme-color" content="#152338">
+    <title>Jingfeng Yao | Generative Models Researcher</title>
+    <link rel="preconnect" href="https://miaoda.feishu.cn">
+    <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,500;6..72,600&amp;display=swap">
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://huggingface.co/front/assets/huggingface_logo.svg" crossorigin="anonymous">
+    <link rel="stylesheet" href="./responsive.css">
 </head>
 <body>
-    <!-- Header Section -->
-    <header class="header-section">
-        <h1>Jingfeng Yao (姚劲枫)</h1>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+        <a class="wordmark" href="#about" aria-label="Jingfeng Yao, home">
+            <span class="wordmark-name">Jingfeng Yao</span>
+        </a>
+        <nav class="site-nav" aria-label="Primary navigation">
+            <a href="#publications">Publications</a>
+            <a href="#awards">Awards</a>
+            <a href="#beyond-research">Beyond research</a>
+        </nav>
+        <a class="header-contact" href="mailto:jfyao@hust.edu.cn">Get in touch <span aria-hidden="true">&nearr;</span></a>
     </header>
 
-    <!-- About Me Section -->
-    <section id="about" class="content-section">
-        <div class="profile-container">
-            <div class="profile-photo">
-                <img src="images/jingfeng.jpg" alt="Jingfeng Yao">
-            </div>
-            <div class="profile-info">
-                <p>
-                    I'm a third-year Ph.D. student at Huazhong University of Science and Technology (HUST), supervised by Prof. Xinggang Wang, and <strong>expected to graduate in 2027</strong>. My previous research includes image matting and representation learning. Currently, my research interests focus on <strong>generative models</strong>.
-                    <ul style="font-size: 0.95em;">
-                        <li>I am first author (including co-first) of 10 papers (<strong>8 accepted</strong>) with GitHub repositories accumulating <strong><span id="github-stars">0</span> stars<span id="stars-date"></span></strong></li>
-                        <li>I have been contributing to <strong>MiniMax Hailuo series video generation model</strong> as an Algorithm Intern since 2024</li>
-                        <li>I trained a matting model, ViTMatte, which has been downloaded <strong>over 50,000,000 times</strong></li>
-                    </ul>
+    <main id="main-content">
+        <section id="about" class="hero-section" aria-labelledby="hero-title">
+            <div class="hero-copy">
+                <p class="eyebrow">Ph.D. researcher · HUST</p>
+                <h1 id="hero-title">Jingfeng Yao <span>姚劲枫</span></h1>
+                <p class="hero-lede">I build generative models and the visual representations that make them work.</p>
+                <p class="hero-bio">
+                    I am a third-year Ph.D. student at Huazhong University of Science and Technology, supervised by Prof. Xinggang Wang, and expected to graduate in 2027. My work spans generative models, image matting, and representation learning.
                 </p>
-                <div class="contact-links">
-                    <a href="mailto:jfyao@hust.edu.cn"><i class="fas fa-envelope"></i> Email</a>
-                    <a href="https://github.com/JingfengYao"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="https://scholar.google.com/citations?user=4qc1qJ0AAAAJ&hl=en"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+                <div class="contact-links" aria-label="Contact and academic profiles">
+                    <a class="primary-link" href="mailto:jfyao@hust.edu.cn">Email me <span aria-hidden="true">&nearr;</span></a>
+                    <a href="https://github.com/JingfengYao" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">&nearr;</span></a>
+                    <a href="https://scholar.google.com/citations?user=4qc1qJ0AAAAJ&amp;hl=en" target="_blank" rel="noreferrer">Google Scholar <span aria-hidden="true">&nearr;</span></a>
                 </div>
+
+                <dl class="hero-stats" aria-label="Research highlights">
+                    <div>
+                        <dt>First-author papers</dt>
+                        <dd>10</dd>
+                    </div>
+                    <div>
+                        <dt>GitHub stars <span id="stars-date"></span></dt>
+                        <dd><span id="github-stars">&mdash;</span><span class="stat-suffix">+</span></dd>
+                    </div>
+                    <div>
+                        <dt>ViTMatte downloads</dt>
+                        <dd>50M<span class="stat-suffix">+</span></dd>
+                    </div>
+                </dl>
             </div>
+
+            <div class="hero-visual">
+                <figure class="portrait-card">
+                    <div class="portrait-wrap">
+                        <img src="images/jingfeng.jpg" alt="Portrait of Jingfeng Yao" width="1280" height="1706">
+                    </div>
+                    <figcaption>
+                        <span>Wuhan, China</span>
+                        <span>Class of 2027</span>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <aside class="research-note" aria-label="Current research and experience">
+            <p class="mono-label">Currently</p>
+            <p>Generative models &amp; visual tokenizers</p>
+            <span class="note-divider" aria-hidden="true"></span>
+            <p>MiniMax H3 Team Intern · since 2024</p>
+        </aside>
+
+        <section id="publications" class="content-section publications-section" aria-labelledby="publications-title">
+            <header class="section-heading">
+                <div>
+                    <p class="eyebrow">Research</p>
+                    <h2 id="publications-title">Selected publications</h2>
+                </div>
+                <p>Work across visual generation, efficient learning, and representation.</p>
+            </header>
+
+            <div class="featured-publications">
+                <article class="publication-card publication-card-featured reveal">
+                    <a class="publication-figure" href="https://arxiv.org/abs/2501.01423" target="_blank" rel="noreferrer" aria-label="Read Reconstruction vs. Generation on arXiv">
+                        <img src="images/vavae.png" alt="Visual overview of the VA-VAE paper" loading="lazy">
+                        <span class="figure-badge">Most Influential CVPR Paper · 11th</span>
+                    </a>
+                    <div class="publication-body">
+                        <div class="publication-meta">
+                            <span>Generative models</span>
+                            <span>CVPR 2025</span>
+                        </div>
+                        <h3>Reconstruction vs. Generation: Taming Optimization Dilemma in Latent Diffusion Models</h3>
+                        <p class="pub-authors"><strong>Jingfeng Yao</strong>, Bin Yang, Xinggang Wang</p>
+                        <div class="pub-highlight">
+                            <p><strong>CVPR 2025 Oral.</strong> Accepted with full score.</p>
+                            <p>Ranked 11th among the most influential CVPR 2025 papers by <a href="https://www.paperdigest.org/2026/03/most-influential-cvpr-papers-2026-03-version/" target="_blank" rel="noreferrer">Paper Digest</a>.</p>
+                        </div>
+                        <div class="pub-links">
+                            <a href="https://arxiv.org/abs/2501.01423" target="_blank" rel="noreferrer">arXiv <span aria-hidden="true">&nearr;</span></a>
+                            <a href="https://github.com/hustvl/LightningDiT?tab=readme-ov-file" target="_blank" rel="noreferrer">Code <span aria-hidden="true">&nearr;</span></a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="publication-card publication-card-featured reveal">
+                    <a class="publication-figure" href="https://arxiv.org/abs/2305.15272" target="_blank" rel="noreferrer" aria-label="Read ViTMatte on arXiv">
+                        <img src="images/vitmatte.png" alt="Visual overview of the ViTMatte paper" loading="lazy">
+                        <span class="figure-badge">50M+ downloads</span>
+                    </a>
+                    <div class="publication-body">
+                        <div class="publication-meta">
+                            <span>Image matting</span>
+                            <span>Information Fusion 2023</span>
+                        </div>
+                        <h3>ViTMatte: Boosting Image Matting with Pretrained Plain Vision Transformers</h3>
+                        <p class="pub-authors"><strong>Jingfeng Yao</strong>, Xinggang Wang, Shusheng Yang, Baoyuan Wang</p>
+                        <div class="pub-highlight">
+                            <p>Integrated into Hugging Face Transformers as a standard matting method.</p>
+                            <p>Integrated into Nuke, with model weights downloaded over 50 million times.</p>
+                        </div>
+                        <div class="pub-links">
+                            <a href="https://arxiv.org/abs/2305.15272" target="_blank" rel="noreferrer">arXiv <span aria-hidden="true">&nearr;</span></a>
+                            <a href="https://github.com/hustvl/ViTMatte?tab=readme-ov-file" target="_blank" rel="noreferrer">Code <span aria-hidden="true">&nearr;</span></a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="publication-index-heading">
+                <h3>More first-author work</h3>
+                <p>* Equal contribution</p>
+            </div>
+
+            <div class="publication-list">
+                <article class="publication-card publication-card-row reveal">
+                    <div class="pub-thumbnail"><img src="images/vtp.png" alt="Visual overview of Towards Scalable Pre-training of Visual Tokenizers" loading="lazy"></div>
+                    <div class="publication-body">
+                        <div class="publication-meta"><span>Visual tokenizers</span><span>ECCV 2026</span></div>
+                        <h3>Towards Scalable Pre-training of Visual Tokenizers for Generation</h3>
+                        <p class="pub-authors"><strong>Jingfeng Yao</strong>, Yuda Song, Yucong Zhou, Xinggang Wang</p>
+                        <div class="pub-links"><a href="https://arxiv.org/abs/2512.13687" target="_blank" rel="noreferrer">arXiv <span aria-hidden="true">&nearr;</span></a><a href="https://github.com/MiniMax-AI/VTP" target="_blank" rel="noreferrer">Code <span aria-hidden="true">&nearr;</span></a></div>
+                    </div>
+                </article>
+
+                <article class="publication-card publication-card-row reveal">
+                    <div class="pub-thumbnail"><img src="images/diffusionvl.png" alt="Visual overview of DiffusionVL" loading="lazy"></div>
+                    <div class="publication-body">
+                        <div class="publication-meta"><span>Vision-language models</span><span>ECCV 2026</span></div>
+                        <h3>DiffusionVL: Translating Any Autoregressive Models into Diffusion Vision Language Models</h3>
+                        <p class="pub-authors">Lunbin Zeng*, <strong>Jingfeng Yao*</strong>, Bencheng Liao, Hongyuan Tao, Wenyu Liu, Xinggang Wang</p>
+                        <div class="pub-links"><a href="https://arxiv.org/abs/2512.15713" target="_blank" rel="noreferrer">arXiv <span aria-hidden="true">&nearr;</span></a><a href="https://github.com/hustvl/DiffusionVL" target="_blank" rel="noreferrer">Code <span aria-hidden="true">&nearr;</span></a></div>
+                    </div>
+                </article>
+
+                <article class="publication-card publication-card-row reveal">
+                    <div class="pub-thumbnail"><img src="images/unix.png" alt="Visual overview of UniX" loading="lazy"></div>
+                    <div class="publication-body">
+                        <div class="publication-meta"><span>Medical AI</span><span>arXiv 2026</span></div>
+                        <h3>UniX: Unifying Autoregression and Diffusion for Chest X-Ray Understanding and Generation</h3>
+                        <p class="pub-authors">Ruiheng Zhang*, <strong>Jingfeng Yao*</strong>, Huangxuan Zhao*, Hao Yan, Xiao He, Lei Chen, Zhou Wei, Yong Luo, Zengmao Wang, Lefei Zhang, Dacheng Tao, Bo Du</p>
+                        <div class="pub-links"><a href="https://arxiv.org/abs/2601.11522" target="_blank" rel="noreferrer">arXiv <span aria-hidden="true">&nearr;</span></a><a href="https://github.com/ZrH42/UniX" target="_blank" rel="noreferrer">Code <span aria-hidden="true">&nearr;</span></a></div>
+                    </div>
+                </article>
+
+                <article class="publication-card publication-card-row reveal">
+                    <div class="pub-thumbnail"><img src="images/turbo_vaed.png" alt="Visual overview of Turbo-VAED" loading="lazy"></div>
+                    <div class="publication-body">
+                        <div class="publication-meta"><span>Efficient video generation</span><span>AAAI 2026</span></div>
+                        <h3>Turbo-VAED: Fast and Stable Transfer of Video-VAEs to Mobile Devices</h3>
+                        <p class="pub-authors">Ya Zou*, <strong>Jingfeng Yao*</strong>, Siyuan Yu, Shuai Zhang, Wenyu Liu, Xinggang Wang</p>
+                        <div class="pub-links"><a href="https://arxiv.org/abs/2508.09136" target="_blank" rel="noreferrer">arXiv <span aria-hidden="true">&nearr;</span></a><a href="https://github.com/hustvl/Turbo-VAED" target="_blank" rel="noreferrer">Code <span aria-hidden="true">&nearr;</span></a></div>
+                    </div>
+                </article>
+
+                <article class="publication-card publication-card-row reveal">
+                    <div class="pub-thumbnail"><img src="images/fasterdit.png" alt="Visual overview of FasterDiT" loading="lazy"></div>
+                    <div class="publication-body">
+                        <div class="publication-meta"><span>Efficient training</span><span>NeurIPS 2024</span></div>
+                        <h3>FasterDiT: Towards Faster Diffusion Transformers Training without Architecture Modification</h3>
+                        <p class="pub-authors"><strong>Jingfeng Yao</strong>, Cheng Wang, Wenyu Liu, Xinggang Wang</p>
+                        <div class="pub-links"><a href="https://arxiv.org/abs/2410.10356" target="_blank" rel="noreferrer">arXiv <span aria-hidden="true">&nearr;</span></a><a href="https://github.com/hustvl/LightningDiT?tab=readme-ov-file" target="_blank" rel="noreferrer">Code <span aria-hidden="true">&nearr;</span></a></div>
+                    </div>
+                </article>
+
+                <article class="publication-card publication-card-row reveal">
+                    <div class="pub-thumbnail"><img src="images/evax.png" alt="Visual overview of EVA-X" loading="lazy"></div>
+                    <div class="publication-body">
+                        <div class="publication-meta"><span>Medical AI</span><span>npj Digital Medicine</span></div>
+                        <h3>EVA-X: A Foundation Model for General Chest X-ray Analysis with Self-supervised Learning</h3>
+                        <p class="pub-authors"><strong>Jingfeng Yao</strong>, Xinggang Wang, Yuehao Song, Huangxuan Zhao, Jun Ma, Yajie Chen, Wenyu Liu, Bo Wang</p>
+                        <div class="pub-links"><a href="https://arxiv.org/abs/2405.05237" target="_blank" rel="noreferrer">arXiv <span aria-hidden="true">&nearr;</span></a><a href="https://github.com/hustvl/EVA-X" target="_blank" rel="noreferrer">Code <span aria-hidden="true">&nearr;</span></a></div>
+                    </div>
+                </article>
+
+                <article class="publication-card publication-card-row reveal">
+                    <div class="pub-thumbnail"><img src="images/matteanything.png" alt="Visual overview of Matte Anything" loading="lazy"></div>
+                    <div class="publication-body">
+                        <div class="publication-meta"><span>Image matting</span><span>IVC 2024</span></div>
+                        <h3>Matte Anything! Interactive Natural Image Matting with Segment Anything Models</h3>
+                        <p class="pub-authors"><strong>Jingfeng Yao</strong>, Xinggang Wang, Lang Ye, Wenyu Liu</p>
+                        <div class="pub-links"><a href="https://arxiv.org/abs/2306.04121" target="_blank" rel="noreferrer">arXiv <span aria-hidden="true">&nearr;</span></a><a href="https://github.com/hustvl/Matte-Anything?tab=readme-ov-file" target="_blank" rel="noreferrer">Code <span aria-hidden="true">&nearr;</span></a></div>
+                    </div>
+                </article>
+
+                <article class="publication-card publication-card-row reveal">
+                    <div class="pub-thumbnail"><img src="images/lkcell.png" alt="Visual overview of LKCell" loading="lazy"></div>
+                    <div class="publication-body">
+                        <div class="publication-meta"><span>Medical AI</span><span>arXiv 2024</span></div>
+                        <h3>LKCell: Efficient Cell Nuclei Instance Segmentation with Large Convolution Kernels</h3>
+                        <p class="pub-authors">Ziwei Cui*, <strong>Jingfeng Yao*</strong>, Lunbin Zeng, Juan Yang, Wenyu Liu, Xinggang Wang</p>
+                        <div class="pub-links"><a href="https://arxiv.org/abs/2407.18054" target="_blank" rel="noreferrer">arXiv <span aria-hidden="true">&nearr;</span></a><a href="https://github.com/hustvl/LKCell" target="_blank" rel="noreferrer">Code <span aria-hidden="true">&nearr;</span></a></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="awards" class="content-section awards-section" aria-labelledby="awards-title">
+            <header class="section-heading">
+                <div>
+                    <p class="eyebrow">Recognition</p>
+                    <h2 id="awards-title">Awards</h2>
+                </div>
+            </header>
+            <div class="awards-grid">
+                <article class="award-card reveal">
+                    <p class="award-year">2024</p>
+                    <h3>China National Scholarship</h3>
+                    <p class="award-cn" lang="zh-CN">国家奖学金</p>
+                    <p>Awarded to only <strong>0.2%</strong> of candidates nationwide.</p>
+                </article>
+                <article class="award-card reveal">
+                    <p class="award-year">2022</p>
+                    <h3>Gold Award, China College Students' “Internet+” Competition</h3>
+                    <p class="award-cn" lang="zh-CN">中国大学生“互联网+”创新创业大赛 国赛金奖</p>
+                    <p>About 300 Gold Awards from 3.4 million projects, a <strong>0.009%</strong> success rate.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="beyond-research" class="content-section story-section" aria-labelledby="story-title">
+            <div class="story-image reveal">
+                <img src="images/volunteer.jpg" alt="Jingfeng Yao during his year as a volunteer teacher in Lincang" loading="lazy">
+            </div>
+            <div class="story-copy reveal">
+                <p class="eyebrow">Beyond research</p>
+                <h2 id="story-title">A year in the classroom</h2>
+                <p>I spent one year as a volunteer teacher in Lincang, Yunnan Province, representing Huazhong University of Science and Technology. I taught history at Linxiang No. 1 Middle School.</p>
+                <a class="text-link" href="https://www.thepaper.cn/newsDetail_forward_9929789" target="_blank" rel="noreferrer">Read the news coverage <span aria-hidden="true">&nearr;</span></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Jingfeng Yao · Generative models researcher</p>
+        <div>
+            <a href="mailto:jfyao@hust.edu.cn">Email</a>
+            <a href="https://github.com/JingfengYao" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="#about">Back to top <span aria-hidden="true">&uarr;</span></a>
         </div>
-    </section>
-
-    <!-- Publications Section -->
-    <section id="publications" class="content-section">
-        <h2>Publications</h2>
-        <h3>Selected Publications</h3>
-        <div class="publication-list">
-            <div class="publication-item">
-                <div class="pub-thumbnail">
-                    <img src="images/vavae.png" alt="Paper thumbnail">
-                </div>
-                <div class="pub-content">
-                    <div class="pub-title">
-                        <strong>Reconstruction vs. Generation: Taming Optimization Dilemma in Latent Diffusion Models</strong>
-                    </div>
-                    <div class="pub-authors">
-                        <strong>Jingfeng Yao</strong>, Bin Yang, Xinggang Wang
-                    </div>
-                    <div class="pub-venue" style="color: #000000; font-style: italic;">
-                        CVPR 2025 <strong>Oral</strong> (CCF-A)
-                    </div>
-                    <div class="pub-highlight" style="color: #e65100;">
-                        <i class="fas fa-star" style="color: #ffd700;"></i> Accepted with FULL score by CVPR.<br>
-                        <i class="fas fa-trophy" style="color: #ffd700;"></i> Most Influential CVPR 2025 Paper 11th — <a href="https://www.paperdigest.org/2026/03/most-influential-cvpr-papers-2026-03-version/">Paper Digest Ranking</a><br>
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2501.01423"><i class="fas fa-file-pdf"></i> arXiv</a>
-                        <a href="https://github.com/hustvl/LightningDiT?tab=readme-ov-file"><i class="fab fa-github"></i> code</a>
-                    </div>
-                </div>
-            </div>
-            <div class="publication-item">
-                <div class="pub-thumbnail">
-                    <img src="images/vitmatte.png" alt="Paper thumbnail">
-                </div>
-                <div class="pub-content">
-                    <div class="pub-title">
-                        <strong>ViTMatte: Boosting Image Matting with Pretrained Plain Vision Transformers</strong>
-                    </div>
-                    <div class="pub-authors">
-                        <strong>Jingfeng Yao</strong>, Xinggang Wang, Shusheng Yang, Baoyuan Wang
-                    </div>
-                    <div class="pub-venue" style="color: #000000; font-style: italic;">
-                        Information Fusion (IF=18.6 at acceptance), 2023
-                    </div>
-                    <div class="pub-highlight" style="color: #e65100;">
-                        <i class="fas fa-star"></i> Integrated into <a href="https://huggingface.co/docs/transformers/model_doc/vitmatte"><img src="https://huggingface.co/front/assets/huggingface_logo.svg" alt="Hugging Face" style="height: 1em; vertical-align: middle;"> Hugging Face Transformers</a> as a standard matting method.<br>
-                        <i class="fas fa-star"></i> Integrated into the professional tool Nuke, with model weights <a href="https://huggingface.co/hustvl/vitmatte-small-composition-1k">downloaded over 50 million times</a>.
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2305.15272"><i class="fas fa-file-pdf"></i> arXiv</a>
-                        <a href="https://github.com/hustvl/ViTMatte?tab=readme-ov-file"><i class="fab fa-github"></i> code</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <h3>Other Publications (First author or co-first author only)</h3>
-        <div class="publication-list">
-
-            <div class="publication-item">
-                <div class="pub-thumbnail">
-                    <img src="images/vtp.png" alt="Paper thumbnail">
-                </div>
-                <div class="pub-content">
-                    <div class="pub-title">
-                        <strong>Towards Scalable Pre-training of Visual Tokenizers for Generation</strong>
-                    </div>
-                    <div class="pub-authors">
-                        <strong>Jingfeng Yao</strong>, Yuda Song, Yucong Zhou, Xinggang Wang
-                    </div>
-                    <div class="pub-venue" style="color: #000000; font-style: italic;">
-                        ECCV 2026 (CCF-B)
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2512.13687"><i class="fas fa-file-pdf"></i> arXiv</a>
-                        <a href="https://github.com/MiniMax-AI/VTP"><i class="fab fa-github"></i> code</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="publication-item">
-                <div class="pub-thumbnail">
-                    <img src="images/diffusionvl.png" alt="Paper thumbnail">
-                </div>
-                <div class="pub-content">
-                    <div class="pub-title">
-                        <strong>DiffusionVL: Translating Any Autoregressive Models into Diffusion Vision Language Models</strong>
-                    </div>
-                    <div class="pub-authors">
-                        Lunbin Zeng*, <strong>Jingfeng Yao*</strong>, Bencheng Liao, Hongyuan Tao, Wenyu Liu, Xinggang Wang (* denotes equal contribution)
-                    </div>
-                    <div class="pub-venue" style="color: #000000; font-style: italic;">
-                        ECCV 2026 (CCF-B)
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2512.15713"><i class="fas fa-file-pdf"></i> arXiv</a>
-                        <a href="https://github.com/hustvl/DiffusionVL"><i class="fab fa-github"></i> code</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="publication-item">
-                <div class="pub-thumbnail">
-                    <img src="images/unix.png" alt="Paper thumbnail">
-                </div>
-                <div class="pub-content">
-                    <div class="pub-title">
-                        <strong>UniX: Unifying Autoregression and Diffusion for Chest X-Ray Understanding and Generation</strong>
-                    </div>
-                    <div class="pub-authors">
-                        Ruiheng Zhang*, <strong>Jingfeng Yao*</strong>, Huangxuan Zhao*, Hao Yan, Xiao He, Lei Chen, Zhou Wei, Yong Luo, Zengmao Wang, Lefei Zhang, Dacheng Tao, Bo Du (* denotes equal contribution)
-                    </div>
-                    <div class="pub-venue" style="color: #666666; font-style: italic;">
-                        arXiv preprint, 2026
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2601.11522"><i class="fas fa-file-pdf"></i> arXiv</a>
-                        <a href="https://github.com/ZrH42/UniX"><i class="fab fa-github"></i> code</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="publication-item">
-                <div class="pub-thumbnail">
-                    <img src="images/turbo_vaed.png" alt="Paper thumbnail">
-                </div>
-                <div class="pub-content">
-                    <div class="pub-title">
-                        <strong>Turbo-VAED: Fast and Stable Transfer of Video-VAEs to Mobile Devices</strong>
-                    </div>
-                    <div class="pub-authors">
-                        Ya Zou*, <strong>Jingfeng Yao*</strong>, Siyuan Yu, Shuai Zhang, Wenyu Liu, Xinggang Wang
-                        (* denotes equal contribution)
-                    </div>
-                    <div class="pub-venue" style="color: #000000; font-style: italic;">
-                        AAAI 2026 (CCF-A)
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2508.09136"><i class="fas fa-file-pdf"></i> arXiv</a>
-                        <a href="https://github.com/hustvl/Turbo-VAED"><i class="fab fa-github"></i> code</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="publication-item">
-                <div class="pub-thumbnail">
-                    <img src="images/fasterdit.png" alt="Paper thumbnail">
-                </div>
-                <div class="pub-content">
-                    <div class="pub-title">
-                        <strong>FasterDiT: Towards Faster Diffusion Transformers Training without Architecture Modification</strong>
-                    </div>
-                    <div class="pub-authors">
-                        <strong>Jingfeng Yao</strong>, Cheng Wang, Wenyu Liu, Xinggang Wang
-                    </div>
-                    <div class="pub-venue" style="color: #000000; font-style: italic;">
-                        NeurIPS 2024 (CCF-A)
-                    </div>
-                    <!-- <div class="pub-highlight" style="color: #e65100;">
-                        <i class="fas fa-search"></i> Analytical theory that observes diffusion training process with Probability Density Function of SNR.
-                    </div> -->
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2410.10356"><i class="fas fa-file-pdf"></i> arXiv</a>
-                        <a href="https://github.com/hustvl/LightningDiT?tab=readme-ov-file"><i class="fab fa-github"></i> code</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="publication-item">
-                <div class="pub-thumbnail">
-                    <img src="images/evax.png" alt="Paper thumbnail">
-                </div>
-                <div class="pub-content">
-                    <div class="pub-title">
-                        <strong>EVA-X: A Foundation Model for General Chest X-ray Analysis with Self-supervised Learning</strong>
-                    </div>
-                    <div class="pub-authors">
-                        <strong>Jingfeng Yao</strong>, Xinggang Wang, Yuehao Song, Huangxuan Zhao, Jun Ma, Yajie Chen, Wenyu Liu, Bo Wang
-                    </div>
-                    <div class="pub-venue" style="color: #000000; font-style: italic;">
-                        npj Digital Medicine (<strong>Nature</strong> Partner Journals, IF=15.1 at acceptance)
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2405.05237"><i class="fas fa-file-pdf"></i> arXiv</a>
-                        <a href="https://github.com/hustvl/EVA-X"><i class="fab fa-github"></i> code</a>
-                    </div>
-                </div>
-            </div>
-
-            
-            <div class="publication-item">
-                <div class="pub-thumbnail">
-                    <img src="images/matteanything.png" alt="Paper thumbnail">
-                </div>
-                <div class="pub-content">
-                    <div class="pub-title">
-                        <strong>Matte Anything! Interactive Natural Image Matting with Segment Anything Models</strong>
-                    </div>
-                    <div class="pub-authors">
-                        <strong>Jingfeng Yao</strong>, Xinggang Wang, Lang Ye, Wenyu Liu
-                    </div>
-                    <div class="pub-venue" style="color: #000000; font-style: italic;">
-                        Image and Vision Computing (CCF-C), 2024
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2306.04121"><i class="fas fa-file-pdf"></i> arXiv</a>
-                        <a href="https://github.com/hustvl/Matte-Anything?tab=readme-ov-file"><i class="fab fa-github"></i> code</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="publication-item">
-                <div class="pub-thumbnail">
-                    <img src="images/lkcell.png" alt="Paper thumbnail">
-                </div>
-                <div class="pub-content">
-                    <div class="pub-title">
-                        <strong>LKCell: Efficient Cell Nuclei Instance Segmentation with Large Convolution Kernels</strong>
-                    </div>
-                    <div class="pub-authors">
-                        Ziwei Cui*, <strong>Jingfeng Yao</strong>*, Lunbin Zeng, Juan Yang, Wenyu Liu, Xinggang Wang
-                        (* denotes equal contribution)
-                    </div>
-                    <div class="pub-venue" style="color: #666666; font-style: italic;">
-                        arXiv preprint, 2024
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2407.18054"><i class="fas fa-file-pdf"></i> arXiv</a>
-                        <a href="https://github.com/hustvl/LKCell"><i class="fab fa-github"></i> code</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Awards Section -->
-    <section id="awards" class="content-section">
-        <h2>Awards</h2>
-        <ul class="awards-list">
-            <li>China National Scholarship 2024<br>
-                国家奖学金
-                <div class="award-highlight" style="color: #666666;">
-                    <i class="fas fa-award" style="color: #ffd700;"></i> The most prestigious honor for university students in China, awarded to only <strong>0.2%</strong> of candidates nationwide.
-                </div>
-            </li>
-            <li>Gold Award in China College Students' 'Internet+' Innovation and 
-                Entrepreneurship Competition 2022<br>
-                中国大学生"互联网+"创新创业大赛 国赛金奖
-                <div class="award-highlight" style="color: #666666;">
-                    <i class="fas fa-medal" style="color: #ffd700;"></i> The largest global innovation event, with a Gold Award success rate of only <strong>0.009%</strong> (about 300 out of 3.4 million projects)
-                </div>
-            </li>
-        </ul>
-    </section>
-
-    <!-- Fun Facts Section -->
-    <section id="fun-facts" class="content-section">
-        <h2>Fun Facts</h2>
-        <div class="fun-fact-list">
-            <div class="fun-fact-item">
-                <div class="fact-thumbnail">
-                    <img src="images/volunteer.jpg" alt="Volunteer teaching">
-                </div>
-                <div class="fact-content">
-                    <p>I spent <strong>one year as a volunteer teacher</strong> in Lincang, Yunnan Province, representing Huazhong University of Science and Technology. I taught history at Linxiang No.1 Middle School.</p>
-                    <div class="fact-links">
-                        <a href="https://www.thepaper.cn/newsDetail_forward_9929789" target="_blank">
-                            <i class="fas fa-newspaper"></i> News Coverage
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </footer>
 
     <script src="scripts.js"></script>
 </body>
