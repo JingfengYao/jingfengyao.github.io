@@ -103,6 +103,10 @@
         gap: 32px;
     }
 
+    .story-image {
+        width: 100%;
+    }
+
     .site-footer {
         display: grid;
     }
