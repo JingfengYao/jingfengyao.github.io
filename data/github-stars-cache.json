@@ -1,6 +1,6 @@
 {
   "stars": {
-    "hustvl/LightningDiT": 1533,
+    "hustvl/LightningDiT": 1535,
     "hustvl/ViTMatte": 553,
     "MiniMax-AI/VTP": 504,
     "hustvl/DiffusionVL": 160,
@@ -10,6 +10,6 @@
     "hustvl/Matte-Anything": 592,
     "hustvl/LKCell": 48
   },
-  "totalStars": 3661,
-  "date": "2026-08-31"
+  "totalStars": 3663,
+  "date": "2026-09-01"
 }
