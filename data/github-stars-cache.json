@@ -1,15 +1,15 @@
 {
   "stars": {
     "hustvl/LightningDiT": 1540,
-    "hustvl/ViTMatte": 559,
+    "hustvl/ViTMatte": 560,
     "MiniMax-AI/VTP": 509,
-    "hustvl/DiffusionVL": 162,
+    "hustvl/DiffusionVL": 163,
     "ZrH42/UniX": 31,
     "hustvl/Turbo-VAED": 142,
     "hustvl/EVA-X": 103,
-    "hustvl/Matte-Anything": 592,
+    "hustvl/Matte-Anything": 593,
     "hustvl/LKCell": 48
   },
-  "totalStars": 3686,
-  "date": "2026-09-22"
+  "totalStars": 3689,
+  "date": "2026-09-23"
 }
