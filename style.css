@@ -471,7 +471,13 @@ h1 span {
 .pub-highlight p {
     margin: 0;
     color: var(--ink-soft);
-    font-size: 12px;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.pub-highlight strong {
+    color: var(--ink);
+    font-weight: 700;
 }
 
 .pub-highlight p::before {
@@ -489,10 +495,40 @@ h1 span {
     padding-top: 18px;
 }
 
+.featured-pub-links {
+    gap: 8px;
+}
+
+.featured-pub-links a {
+    padding: 7px 10px;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    font-size: 12px;
+    transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.featured-pub-links a:hover {
+    border-color: #b8cce0;
+    background: #f1f5f9;
+    text-decoration: none;
+}
+
+.featured-pub-links .primary-pub-link {
+    color: var(--accent-dark);
+    border-color: #c6d7e8;
+    background: #edf4fa;
+    font-weight: 700;
+}
+
+.featured-pub-links .primary-pub-link:hover {
+    border-color: #91b2d0;
+    background: #e3eef7;
+}
+
 .github-stars {
     color: var(--muted);
     font-size: 9px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .publication-index-heading {
